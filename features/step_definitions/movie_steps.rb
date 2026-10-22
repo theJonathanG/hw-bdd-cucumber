@@ -63,8 +63,8 @@ Then(/^I should see all the movies$/) do
   Movie.all.each do |movie|
     expect(page).to have_content(movie.title)
   end
-  
-  rows = page.all('table#movies tbody tr').count
+
+  rows = page.all('#movies > div[id^="movie_"]').count
   expect(rows).to eq Movie.count
 
 end
