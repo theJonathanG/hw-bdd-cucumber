@@ -20,7 +20,7 @@ Then(/^I should see "(.*)" before "(.*)" in the movie list$/) do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
   expect(page.body).to match(/#{e1}.*#{e2}/m)
-  
+
 end
 
 
@@ -60,8 +60,12 @@ end
 
 Then(/^I should see all the movies$/) do
   # Make sure that all the movies in the app are visible in the table
+  Movie.all.each do |movie|
+    expect(page).to have_content(movie.title)
+  end
+  
   rows = page.all('table#movies tbody tr').count
-  page.all('tr').count - 1
+  expect(rows).to eq Movie.count
 
 end
 
